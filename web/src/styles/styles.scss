@@ -1,0 +1,20 @@
+/* ----------------------------------------------------------------------------------------------------- */
+/*  @ Import/write your custom styles here.
+/*  @ Styles from this file will override 'vendors.scss' and Fuse's base styles.
+/* ----------------------------------------------------------------------------------------------------- */
+
+.error-snackbar {
+  margin: 0 !important;
+  padding-top: 8px;
+  border-radius: 6px;
+  overflow: hidden;
+
+  .mat-mdc-snack-bar-label {
+    padding: 0;
+  }
+
+  .mdc-snackbar__surface {
+    background-color: transparent!important;
+    padding: 0;
+  }
+}

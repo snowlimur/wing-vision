@@ -1,0 +1,46 @@
+<div class="absolute inset-0 flex flex-col min-w-0 overflow-y-auto" cdkScrollable>
+
+    <!-- Header -->
+    <div class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between p-6 sm:py-8 sm:px-10 border-b bg-card dark:bg-transparent">
+        <div class="flex-1 min-w-0">
+            <!-- Title -->
+            <div class="mt-2">
+                <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight leading-7 sm:leading-10 truncate">
+                    Streams
+                </h2>
+            </div>
+        </div>
+        <!-- Actions -->
+        <div class="flex shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+            <button
+                    mat-flat-button
+                    [color]="'primary'"
+                    [routerLink]="['/streams/create']">
+                <mat-icon
+                        class="icon-size-5"
+                        [svgIcon]="'mat_outline:add_circle_outline'"></mat-icon>
+                <span class="ml-2">Add</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Main -->
+    <div class="flex flex-wrap items-start justify-center p-6 sm:p-10">
+        <ng-container *ngFor="let item of streams">
+            <!-- Item -->
+            <fuse-card class="stream flex flex-col max-w-80 w-full mb-4 mr-4" [routerLink]="['/streams/view', item.id]">
+                <img class="object-cover"
+                     src="assets/images/cards/01-320x200.jpg"
+                     alt="Card cover image">
+                <div class="m-8">
+                    <div class="text-2xl font-semibold leading-tight">{{ item.title }}</div>
+                    <div class="text-md font-semibold leading-none tracking-wide text-warn mb-1">
+                        {{ item.active ? 'Online' : 'Offline' }}
+                    </div>
+                    <span class="text-sm text-secondary leading-none mt-1">Last video was created 1 hours ago</span>
+                </div>
+            </fuse-card>
+        </ng-container>
+    </div>
+
+</div>

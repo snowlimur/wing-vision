@@ -1,0 +1,67 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  salt      String
+  password  String
+  posts     Stream[]
+  videos    Video[]
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("user")
+}
+
+enum StreamType {
+  PULL
+  PUSH
+}
+
+model Stream {
+  id        Int        @id @default(autoincrement())
+  ownerId   Int
+  title     String
+  type      StreamType
+  active    Boolean?   @default(false)
+  createdAt DateTime   @default(now()) @map("created_at")
+  updatedAt DateTime   @updatedAt @map("updated_at")
+
+  // @todo normalize schema
+  key  String? @unique
+  rtmp String?
+
+  videos Video[]
+  owner  User    @relation(fields: [ownerId], references: [id])
+
+  @@index([ownerId])
+  @@map("stream")
+}
+
+model Video {
+  id        Int      @id @default(autoincrement())
+  file      String?
+  streamId  Int
+  ownerId   Int
+  time      DateTime
+  duration  Int
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  stream Stream? @relation(fields: [streamId], references: [id])
+  owner  User?   @relation(fields: [ownerId], references: [id])
+
+  @@index([ownerId])
+  @@index([streamId])
+  @@map("video")
+}

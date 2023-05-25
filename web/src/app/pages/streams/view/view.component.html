@@ -1,0 +1,62 @@
+<div
+  class="absolute inset-0 flex flex-col min-w-0 overflow-y-auto"
+  cdkScrollable>
+
+  <!-- Header -->
+  <div
+    class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between p-6 sm:py-8 sm:px-10 border-b bg-card dark:bg-transparent">
+    <div class="flex-1 min-w-0">
+      <!-- Title -->
+      <div class="mt-2">
+        <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight leading-7 sm:leading-10 truncate">
+          {{stream?.title}}
+        </h2>
+      </div>
+    </div>
+    <!-- Actions -->
+    <div class="flex shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+      <button
+        mat-flat-button
+        [color]="'accent'"
+        [routerLink]="['/streams']">
+        <mat-icon
+          class="icon-size-5"
+          [svgIcon]="'mat_outline:arrow_back'"></mat-icon>
+        <span class="ml-2">Back to list</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Main -->
+  <div class="flex flex-wrap p-6 sm:p-10">
+
+    <div class="grid grid-cols-1 xl:grid-cols-3 gap-8 w-full">
+      <div class="xl:col-span-2 flex flex-col flex-auto bg-card shadow rounded-2xl overflow-hidden p-6">
+        <div class="font-medium">URL for encoder</div>
+        <div class="font-2xl text-center p-2 my-2 border-2 rounded-md border-solid ">
+          rtmp://localhost:1935/live/{{stream?.key}}
+        </div>
+        <div class="text-secondary">
+          Copy the URL, go to the "Broadcast" section of the encoder and select the desired item from the drop-down list.
+        </div>
+
+        <div class="font-medium mt-6">URL for video player</div>
+        <div class="font-2xl text-center p-2 my-2 border-2 rounded-md border-solid ">
+          http://localhost:7002/live/{{stream?.key}}.m3u8
+        </div>
+      </div>
+
+      <div class="xl:col-span-1 flex flex-col flex-auto bg-card shadow rounded-2xl overflow-hidden">
+        <div class="p-6">
+          <div class="mr-4 mb-2 text-lg font-medium tracking-tight leading-6 truncate">Live: </div>
+          <div class="text-secondary font-medium">
+            <video #videoPlayer id="videoPlayer" controls autoplay playsinline></video>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+
+</div>

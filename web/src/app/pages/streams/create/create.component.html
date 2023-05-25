@@ -1,0 +1,66 @@
+<div
+        class="absolute inset-0 flex flex-col min-w-0 overflow-y-auto"
+        cdkScrollable>
+
+    <!-- Header -->
+    <div class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between p-6 sm:py-8 sm:px-10 border-b bg-card dark:bg-transparent">
+        <div class="flex-1 min-w-0">
+            <!-- Title -->
+            <div class="mt-2">
+                <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight leading-7 sm:leading-10 truncate">
+                    New Stream
+                </h2>
+            </div>
+        </div>
+        <!-- Actions -->
+        <div class="flex shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+            <button
+                    mat-flat-button
+                    [color]="'warn'"
+                    [routerLink]="['/streams']">
+                <mat-icon
+                        class="icon-size-5"
+                        [svgIcon]="'mat_outline:cancel'"></mat-icon>
+                <span class="ml-2">Cancel</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Main -->
+    <div class="h-full flex flex-wrap justify-center place-items-center p-6 sm:p-10">
+        <fuse-card class="flex flex-col items-center max-w-80 w-full p-8 mr-8">
+            <div class="flex items-center justify-center p-5 rounded-full bg-primary-100 dark:bg-gray-600">
+                <mat-icon
+                  class="icon-size-10 text-primary-500 dark:text-primary-300"
+                  [svgIcon]="'mat_outline:ondemand_video'"></mat-icon>
+            </div>
+            <div class="text-2xl font-semibold leading-tight text-center mt-6">I have a video broadcast</div>
+            <div class="text-center text-secondary mt-3">Just give us the broadcast address, and we'll take care of the rest</div>
+            <a
+              class="px-6 mt-8"
+              mat-flat-button
+              [color]="'primary'"
+              [routerLink]="['./']">
+                Connect
+            </a>
+        </fuse-card>
+
+        <fuse-card class="flex flex-col items-center max-w-80 w-full p-8">
+            <div class="flex items-center justify-center p-5 rounded-full bg-primary-100 dark:bg-gray-600">
+                <mat-icon
+                  class="icon-size-10 text-primary-500 dark:text-primary-300"
+                  [svgIcon]="'mat_outline:videocam'"></mat-icon>
+            </div>
+            <div class="text-2xl font-semibold leading-tight text-center mt-6">I only have a camera</div>
+            <div class="text-center text-secondary mt-3">We'll give you an address where you can send your video stream</div>
+            <a
+              class="px-6 mt-8"
+              mat-flat-button
+              [color]="'primary'"
+              [routerLink]="['push']">
+                Create
+            </a>
+        </fuse-card>
+    </div>
+
+</div>

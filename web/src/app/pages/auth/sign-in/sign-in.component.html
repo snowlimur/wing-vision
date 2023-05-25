@@ -1,0 +1,159 @@
+<div class="flex flex-col flex-auto items-center sm:justify-center min-w-0 md:p-8">
+    <div class="flex md:w-full md:max-w-6xl sm:rounded-2xl sm:shadow overflow-hidden sm:bg-card">
+        <div class="w-full sm:w-auto py-8 px-4 sm:p-12 md:p-16">
+            <div class="w-full max-w-80 sm:w-80 mx-auto sm:mx-0">
+
+
+                <!-- Title -->
+                <div class="mt-8 text-4xl font-extrabold tracking-tight leading-tight">Sign in</div>
+                <div class="flex items-baseline mt-0.5 font-medium">
+                    <div>Don't have an account?</div>
+                    <a
+                            class="ml-1 text-primary-500 hover:underline"
+                            [routerLink]="['/sign-up']">Sign up
+                    </a>
+                </div>
+
+                <!-- Alert -->
+                <fuse-alert
+                        class="mt-8 -mb-4"
+                        *ngIf="showAlert"
+                        [appearance]="'outline'"
+                        [showIcon]="false"
+                        [type]="alert.type"
+                        [@shake]="alert.type === 'error'">
+                    {{alert.message}}
+                </fuse-alert>
+
+                <!-- Sign in form -->
+                <form
+                        class="mt-8"
+                        [formGroup]="signInForm"
+                        #signInNgForm="ngForm">
+
+                    <!-- Email field -->
+                    <mat-form-field class="w-full">
+                        <mat-label>Email address</mat-label>
+                        <input
+                                id="email"
+                                matInput
+                                [formControlName]="'email'">
+                        <mat-error *ngIf="signInForm.get('email').hasError('required')">
+                            Email address is required
+                        </mat-error>
+                        <mat-error *ngIf="signInForm.get('email').hasError('email')">
+                            Please enter a valid email address
+                        </mat-error>
+                    </mat-form-field>
+
+                    <!-- Password field -->
+                    <mat-form-field class="w-full">
+                        <mat-label>Password</mat-label>
+                        <input
+                                id="password"
+                                matInput
+                                type="password"
+                                [formControlName]="'password'"
+                                #passwordField>
+                        <button
+                                mat-icon-button
+                                type="button"
+                                (click)="passwordField.type === 'password' ? passwordField.type = 'text' : passwordField.type = 'password'"
+                                matSuffix>
+                            <mat-icon
+                                    class="icon-size-5"
+                                    *ngIf="passwordField.type === 'password'"
+                                    [svgIcon]="'heroicons_solid:eye'"></mat-icon>
+                            <mat-icon
+                                    class="icon-size-5"
+                                    *ngIf="passwordField.type === 'text'"
+                                    [svgIcon]="'heroicons_solid:eye-off'"></mat-icon>
+                        </button>
+                        <mat-error>
+                            Password is required
+                        </mat-error>
+                    </mat-form-field>
+
+                    <!-- Actions -->
+                    <div class="inline-flex items-center justify-between w-full mt-1.5">
+                        <mat-checkbox
+                                class="-ml-2"
+                                [color]="'primary'"
+                                [formControlName]="'rememberMe'">
+                            Remember me
+                        </mat-checkbox>
+                        <a
+                                class="text-md font-medium text-primary-500 hover:underline"
+                                [routerLink]="['/forgot-password']">Forgot password?
+                        </a>
+                    </div>
+
+                    <!-- Submit button -->
+                    <button
+                            class="fuse-mat-button-large w-full mt-6"
+                            mat-flat-button
+                            [color]="'primary'"
+                            [disabled]="signInForm.disabled"
+                            (click)="signIn()">
+                        <span *ngIf="!signInForm.disabled">
+                            Sign in
+                        </span>
+                        <mat-progress-spinner
+                                *ngIf="signInForm.disabled"
+                                [diameter]="24"
+                                [mode]="'indeterminate'"></mat-progress-spinner>
+                    </button>
+                </form>
+            </div>
+        </div>
+        <div class="relative hidden md:flex flex-auto items-center justify-center h-full p-16 lg:px-28 overflow-hidden bg-gray-800 dark:border-l">
+            <!-- Background - @formatter:off -->
+            <!-- Rings -->
+            <svg class="absolute inset-0 pointer-events-none"
+                 viewBox="0 0 960 540" width="100%" height="100%" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
+                <g class="text-gray-700 opacity-25" fill="none" stroke="currentColor" stroke-width="100">
+                    <circle r="234" cx="196" cy="23"></circle>
+                    <circle r="234" cx="790" cy="491"></circle>
+                </g>
+            </svg>
+            <!-- Dots -->
+            <svg class="absolute -top-16 -right-16 text-gray-700"
+                 viewBox="0 0 220 192" width="220" height="192" fill="none">
+                <defs>
+                    <pattern id="837c3e70-6c3a-44e6-8854-cc48c737b659" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+                        <rect x="0" y="0" width="4" height="4" fill="currentColor"></rect>
+                    </pattern>
+                </defs>
+                <rect width="220" height="192" fill="url(#837c3e70-6c3a-44e6-8854-cc48c737b659)"></rect>
+            </svg>
+            <!-- @formatter:on -->
+            <!-- Content -->
+            <div class="z-10 relative w-full max-w-2xl">
+                <div class="text-lg tracking-tight leading-6 text-gray-400 pl-16" style="margin-bottom: -10px">
+                    Study Project
+                </div>
+                <div class="text-7xl font-bold leading-none text-gray-100">
+                    <div class="flex flex-row items-center">
+                        <div class="w-14 mr-2">
+                            <img src="/assets/icons/logo.svg">
+                        </div>
+                        <div style="font-size: 40px">WingVision</div>
+                    </div>
+                </div>
+
+                <div class="mt-6 text-lg tracking-tight leading-6 text-gray-400">
+                    WingVision uses state-of-the-art machine learning algorithms to analyze video streams and identify the presence of
+                    birds. It then saves only those segments of the video that contain birds, making it easier than ever to capture stunning
+                    footage of these magnificent creatures in their natural habitats.
+                    <br><br>
+                    The service is perfect for wildlife enthusiasts, researchers, conservationists, and filmmakers who want to easily
+                    monitor bird behavior, identify different bird species, and protect endangered bird populations.
+                </div>
+
+                <div class="mt-6 text-lg tracking-tight leading-6 text-on-accent">
+                    Peter the Great St. Petersburg Polytechnic University
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

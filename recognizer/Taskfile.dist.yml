@@ -1,0 +1,37 @@
+# This file is used for automation purposes
+# We can describe how to install software we use to build
+# We also automated repo initialization after git clone here
+# For more information see 'desc' of each task
+# About tooling http://taskfile.dev/
+
+version: '3'
+
+dotenv: [ '.env' ]
+
+tasks:
+  restreamer-up:
+    cmds:
+      - >
+        docker run -d --name restreamer
+        -v ./restreamer/config:/core/config
+        -v ./restreamer/data:/core/data
+        -p 8080:8080 -p 8181:8181
+        -p 1935:1935 -p 1936:1936
+        -p 6000:6000/udp
+        datarhei/restreamer:latest
+
+  ffmpeg:
+    desc: запуск трансляции
+    cmds:
+      - ffmpeg -re -i examples/long.mp4 -c:v libx264 -c:a aac -f flv "$RTMP_SERVER"
+
+  play:
+    desc: просмотр трансляции
+    cmds:
+      - ffplay $RTMP_SERVER
+
+  cp-env:
+    cmds:
+      - cp .env.example .env
+    status:
+      - test -f .env

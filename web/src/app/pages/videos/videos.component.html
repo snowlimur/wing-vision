@@ -1,0 +1,137 @@
+<div
+        class="absolute inset-0 flex flex-col min-w-0 overflow-y-auto"
+        cdkScrollable>
+
+    <!-- Header -->
+    <div class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between p-6 sm:py-8 sm:px-10 border-b bg-card dark:bg-transparent">
+        <div class="flex-1 min-w-0">
+            <!-- Title -->
+            <div class="mt-2">
+                <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight leading-7 sm:leading-10 truncate">
+                    Video Library
+                </h2>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main -->
+    <div class="flex flex-wrap items-start justify-center p-6 sm:p-10">
+        <!--        <ng-container *ngFor="let item of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]">-->
+        <!--            &lt;!&ndash; Item &ndash;&gt;-->
+        <!--            <fuse-card class="flex flex-col max-w-80 w-full mb-4 mr-4">-->
+        <!--                <img class="object-cover"-->
+        <!--                     src="assets/images/cards/02-320x200.jpg"-->
+        <!--                     alt="Card cover image">-->
+        <!--                <div class="m-8">-->
+        <!--                    <div class="text-2xl font-semibold leading-tight">Name of the video</div>-->
+        <!--                    <span class="text-sm text-secondary leading-none mt-1">Created {{item}} hours ago</span>-->
+        <!--                </div>-->
+        <!--            </fuse-card>-->
+        <!--        </ng-container>-->
+
+        <div class="grid grid-cols-1 xl:grid-cols-3 gap-8 w-full mt-4">
+            <!-- Recent transactions table -->
+            <div class="xl:col-span-2 flex flex-col flex-auto bg-card shadow rounded-2xl overflow-hidden">
+                <div class="overflow-x-auto mx-6">
+                    <table
+                            class="w-full bg-transparent"
+                            mat-table
+                            matSort
+                            [dataSource]="videosDataSource"
+                            [trackBy]="trackByFn"
+                            #recentTransactionsTable>
+
+                        <!-- Transaction ID -->
+                        <ng-container matColumnDef="id">
+                            <th
+                                    mat-header-cell
+                                    mat-sort-header
+                                    *matHeaderCellDef>
+                                ID
+                            </th>
+                            <td
+                                    mat-cell
+                                    *matCellDef="let video">
+                                    <span class="pr-6 font-medium text-sm text-secondary whitespace-nowrap">
+                                        {{video.id}}
+                                    </span>
+                            </td>
+                        </ng-container>
+
+                        <!-- Date -->
+                        <ng-container matColumnDef="date">
+                            <th
+                                    mat-header-cell
+                                    mat-sort-header
+                                    *matHeaderCellDef>
+                                Date
+                            </th>
+                            <td
+                                    mat-cell
+                                    *matCellDef="let video">
+                                    <span class="pr-6 whitespace-nowrap">
+                                        {{video.time | date:'MMM dd, y hh:mm:ss'}}
+                                    </span>
+                            </td>
+                        </ng-container>
+
+                        <!-- Name -->
+                        <ng-container matColumnDef="name">
+                            <th mat-header-cell mat-sort-header *matHeaderCellDef>
+                                Stream Name
+                            </th>
+                            <td
+                                    mat-cell
+                                    *matCellDef="let video">
+                                    <span class="pr-6 whitespace-nowrap">
+                                        {{video.stream.title}}
+                                    </span>
+                            </td>
+                        </ng-container>
+
+                        <!-- Amount -->
+                        <ng-container matColumnDef="duration">
+                            <th
+                                    mat-header-cell
+                                    mat-sort-header
+                                    *matHeaderCellDef>
+                                Duration
+                            </th>
+                            <td
+                                    mat-cell
+                                    *matCellDef="let video">
+                                    <span class="pr-6 font-medium whitespace-nowrap">
+                                        {{ video.duration }}s
+                                    </span>
+                            </td>
+                        </ng-container>
+
+                        <!-- Footer -->
+                        <ng-container matColumnDef="recentOrdersTableFooter">
+                            <td
+                                    class="py-6 px-0 border-0"
+                                    mat-footer-cell
+                                    *matFooterCellDef
+                                    colspan="6">
+<!--                                <button mat-stroked-button>See all segments</button>-->
+                            </td>
+                        </ng-container>
+
+                        <tr
+                                mat-header-row
+                                *matHeaderRowDef="videosTableColumns"></tr>
+                        <tr
+                                class="video-row h-16"
+                                mat-row (click)="getRecord(row)"
+                                *matRowDef="let row; columns: videosTableColumns;"></tr>
+                        <tr
+                                class="h-16 border-0"
+                                mat-footer-row
+                                *matFooterRowDef="['recentOrdersTableFooter']"></tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
